@@ -5,7 +5,7 @@ import com.mongrel.backend.model.Gasto;
 // conecta o repositorio com a entidade da pasta model //
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface gastoRepository extends JpaRepository<Gasto, Long> {
+public interface GastoRepository extends JpaRepository<Gasto, Long> {
 
 } // sem escrever nenhum SQL temos: "quero um repositorio que gerencia Gasto usando ID do tipo Long" //
 //Long = numero inteiro grande como 999999999, é utilizado para Ids por motivos obvios//

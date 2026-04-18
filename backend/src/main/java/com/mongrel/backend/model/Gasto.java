@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Gasto {
     @Id
-    @GenerateValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String descricao;

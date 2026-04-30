@@ -1,7 +1,7 @@
 package com.mongrel.backend.controller;
 
 import com.mongrel.backend.model.Gasto; // importando entidade //
-import com.mongrel.backend.repository.GastoRepository; //importando repositorio de acesso ao banco//
+import com.mongrel.backend.service.GastoService; //importando service para acesso ao banco//
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,22 +11,23 @@ import java.util.List; //para trabalhar com listas//
 @RequestMapping("/gastos") //define rota base: http: barra barra localhost:8080 barra gastos//
 @CrossOrigin //libera acesso do frontend, requisição permitida//
 public class GastoController {
-    @Autowired
-    private GastoRepository repo;
-    //injeção do repositorio, cria ele automatico e injeta aqui//
-
+    private final GastoService gastoService;
+    //injeção do service, cria a dependencia gastoService automatico e injeta aqui//
+    public GastoController(GastoService gastoService) {
+        this.gastoService = gastoService;
+    }
     @PostMapping
     public Gasto criar(@RequestBody Gasto gasto) {
-        return repo.save(gasto);
+        return gastoService.criar(gasto);
     }
     //@PostMapping = metodo POST//
     //@RequestBody = pega o JSON da requisição e transforma em objeto java//
-    //return repo.save = retorna objeto salvo//
+    //return gastoService = salva o objeto gasto cadastrado chamando o service//
 
     @GetMapping
     public List<Gasto> listar() {
-        return repo.findAll();
+        return gastoService.listar();
     }
     //@GetMapping = metodo GET//
-    //return repo.findAll = retorna os dados cadastrados//
+    //return gastoService.listar() = retorna os dados cadastrados//
 }

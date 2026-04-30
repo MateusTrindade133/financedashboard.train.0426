@@ -25,7 +25,7 @@ public class GastoService {
             //regra de negocio, se os dados forem invalidos o fluxo é interrompido e o erro lançado//
         }
         return gastoRepository.save(gasto);
-        //se passou na validação os dados são salvos no banco//
+        //se passou na validação salva os dados no banco//
     }
     public List<Gasto> listar() {
         return gastoRepository.findAll();

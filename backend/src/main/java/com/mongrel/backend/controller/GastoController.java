@@ -1,5 +1,7 @@
 package com.mongrel.backend.controller;
 
+import com.mongrel.backend.dto.GastoRequestDTO;
+import com.mongrel.backend.dto.GastoResponseDTO;
 import com.mongrel.backend.model.Gasto; // importando entidade //
 import com.mongrel.backend.service.GastoService; //importando service para acesso ao banco//
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +19,30 @@ public class GastoController {
         this.gastoService = gastoService;
     }
     @PostMapping
-    public Gasto criar(@RequestBody Gasto gasto) {
-        return gastoService.criar(gasto);
-    }
+    public GastoResponseDTO criar(
+        @RequestBody GastoRequestDTO dto)
+        {
+            Gasto gasto = gastoService.criar(dto);
+            
+            return new GastoResponseDTO(
+                gasto.getId(),
+                gasto.getDescricao(),
+                gasto.getValor()
+            );
+        }
     //@PostMapping = metodo POST//
     //@RequestBody = pega o JSON da requisição e transforma em objeto java//
     //return gastoService = salva o objeto gasto cadastrado chamando o service//
 
     @GetMapping
-    public List<Gasto> listar() {
-        return gastoService.listar();
+    public List<GastoResponseDTO> listar() {
+        return gastoService.listar()
+        .stream() //permite percorrer a lista//
+        .map(gasto -> new GastoResponseDTO(
+            gasto.getId(),
+            gasto.getDescricao(),
+            gasto.getValor()
+        )) //.map transforma cada objeto//
+        .toList();
     }
-    //@GetMapping = metodo GET//
-    //return gastoService.listar() = retorna os dados cadastrados//
 }

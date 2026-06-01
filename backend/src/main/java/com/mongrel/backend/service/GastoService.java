@@ -1,5 +1,6 @@
 package com.mongrel.backend.service;
 
+import com.mongrel.backend.dto.GastoRequestDTO;
 import org.springframework.stereotype.Service;
 import com.mongrel.backend.model.Gasto;
 import com.mongrel.backend.repository.GastoRepository;
@@ -17,13 +18,15 @@ public class GastoService {
     //injeção de dependencia (injetar a dependencia gastoRepository dentro do service sem precisar criar ela)//
     }
 
-    public Gasto criar(Gasto gasto) {
-        //metodo que repesenta uma ação do sistema//
-        //recebe o objeto Gasto e retorna Gasto//
+    public Gasto criar(GastoRequestDTO dto) {
+
+        Gasto gasto = new Gasto();
+
+        gasto.setDescricao(dto.descricao());
+        gasto.setValor(dto.valor());
+
         if (gasto.getValor() <= 0) {
-            throw new
-            RuntimeException("Valor inválido");
-            //regra de negocio, se os dados forem invalidos o fluxo é interrompido e o erro lançado//
+            throw new RuntimeException("Valor inválido");
         }
         return gastoRepository.save(gasto);
         //se passou na validação salva os dados no banco//

@@ -12,6 +12,11 @@ public class Gasto {
 
     private Double valor;
 
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     // Construtor vazio obrigatório pro JPA //
 
     public Gasto () {}
@@ -37,4 +42,12 @@ public class Gasto {
     public void setValor(Double valor) {
         this.valor = valor;
     }
+
+    public User getUser() {
+    return user;
+}
+
+public void setUser(User user) {
+    this.user = user;
+}
 }

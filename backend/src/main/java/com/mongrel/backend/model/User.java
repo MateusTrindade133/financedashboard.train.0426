@@ -1,12 +1,14 @@
 package com.mongrel.backend.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
 
 public class User {
-    @id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
@@ -21,6 +23,9 @@ public class User {
 
     private String senha;
 
+    @OneToMany(mappedBy = "user")
+    private List<Gasto> gastos = new ArrayList<>();
+
     public User() {
 
     }
@@ -29,7 +34,7 @@ public class User {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-    }
+    } //diz que os atributos mencionados apos o this. terão o valor recebido pelo usuario//
 
     public Long getId(){
         return id;
@@ -39,7 +44,7 @@ public class User {
         return nome;
     }
 
-    public void String setNome(String nome){
+    public void setNome (String nome){
         this.nome = nome;
     }
 
@@ -47,7 +52,7 @@ public class User {
         return email;
     }
 
-    public void String setEmail(String email){
+    public void setEmail (String email){
         this.email = email;
     }
 
@@ -55,7 +60,7 @@ public class User {
         return senha;
     }
 
-    public void String setSenha(String senha){
+    public void setSenha (String senha){
         this.senha = senha;
     }
 }
